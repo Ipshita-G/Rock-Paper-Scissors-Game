@@ -1,0 +1,405 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Orbitron", "Segoe UI", Arial, sans-serif;
+    background: radial-gradient(circle at top, #050b17 0%, #071728 34%, #08172f 68%, #00070f 100%);
+    color: #d1f7ff;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(78, 230, 255, 0.18), transparent 15%),
+        radial-gradient(circle at 80% 18%, rgba(108, 92, 255, 0.16), transparent 12%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 35%, rgba(255, 255, 255, 0.06));
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+h1 {
+    margin: 0 0 22px;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    letter-spacing: 0.18em;
+    text-align: center;
+    text-transform: uppercase;
+    color: #85e5ff;
+    text-shadow: 0 0 18px rgba(133, 229, 255, 0.6);
+    z-index: 1;
+}
+
+.container {
+    width: min(1200px, 100%);
+    padding: 40px;
+    background: rgba(8, 19, 42, 0.88);
+    border: 1px solid rgba(133, 229, 255, 0.18);
+    border-radius: 32px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03), 0 26px 70px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.panel {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.status-card {
+    width: 100%;
+    display: grid;
+    gap: 12px;
+    padding: 18px;
+    border-radius: 22px;
+    background: rgba(4, 13, 29, 0.9);
+    border: 1px solid rgba(131, 210, 255, 0.16);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.status-card > div {
+    width: 100%;
+}
+
+.choices {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.choices button {
+    width: 112px;
+    height: 112px;
+    border: 1px solid rgba(133, 229, 255, 0.28);
+    border-radius: 28px;
+    background: linear-gradient(180deg, rgba(19, 43, 68, 0.92), rgba(13, 28, 47, 0.96));
+    color: #d1f7ff;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+    box-shadow: 0 0 28px rgba(75, 188, 255, 0.18);
+}
+
+.choices button:hover,
+.choices button:focus {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(88, 213, 255, 0.45), 0 0 0 2px rgba(88, 213, 255, 0.12);
+}
+
+.choices button:active {
+    transform: translateY(1px);
+    box-shadow: 0 0 20px rgba(88, 213, 255, 0.35);
+}
+
+.status-card {
+    display: grid;
+    gap: 12px;
+    padding: 18px;
+    border-radius: 22px;
+    background: rgba(4, 13, 29, 0.9);
+    border: 1px solid rgba(131, 210, 255, 0.16);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.status-card span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+}
+
+.battle-arena {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 32px;
+    align-items: center;
+}
+
+.side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-side {
+    justify-content: flex-end;
+}
+
+.computer-side {
+    justify-content: flex-start;
+}
+
+.player-info,
+.computer-info {
+    width: 100%;
+    padding: 24px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(19, 50, 82, 0.9), rgba(13, 35, 61, 0.95));
+    border: 2px solid rgba(133, 229, 255, 0.24);
+    text-align: center;
+    box-shadow: 0 0 30px rgba(75, 188, 255, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.03);
+    transition: all 300ms ease;
+}
+
+.player-info:hover,
+.computer-info:hover {
+    border-color: rgba(133, 229, 255, 0.4);
+    box-shadow: 0 0 40px rgba(75, 188, 255, 0.25), inset 0 0 30px rgba(255, 255, 255, 0.06);
+}
+
+.player-info h2,
+.computer-info h2 {
+    margin: 0 0 16px;
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #85e5ff;
+    text-shadow: 0 0 12px rgba(133, 229, 255, 0.5);
+}
+
+.choice-display {
+    font-size: 4rem;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px 0;
+    min-height: 120px;
+    transition: transform 300ms ease, text-shadow 300ms ease;
+}
+
+.choice-display:not(:has(*)) + .score {
+    opacity: 0.7;
+}
+
+.score {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #5cea92;
+    text-shadow: 0 0 10px rgba(92, 234, 146, 0.3);
+}
+
+.battle-center {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+}
+
+.result-text {
+    padding: 20px 24px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(16, 32, 60, 0.94), rgba(7, 17, 35, 0.96));
+    border: 2px solid rgba(133, 229, 255, 0.18);
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(133, 229, 255, 0.1);
+    width: 100%;
+    color: #d1f7ff;
+    transition: all 400ms ease;
+}
+
+.vs-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    width: 90px;
+    background: radial-gradient(circle, rgba(133, 229, 255, 0.1), transparent 70%);
+    border-radius: 50%;
+    border: 2px solid rgba(133, 229, 255, 0.15);
+    box-shadow: inset 0 0 20px rgba(75, 188, 255, 0.1), 0 0 30px rgba(75, 188, 255, 0.1);
+}
+
+.vs {
+    font-size: 1.4rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    color: #85e5ff;
+    text-shadow: 0 0 15px rgba(133, 229, 255, 0.6);
+}
+
+#playerDisplay,
+#computerDisplay {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    font-size: 4rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #d1f7ff;
+    text-shadow: 0 0 12px rgba(133, 229, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    transition: transform 300ms ease, text-shadow 300ms ease;
+}
+
+#playerScore,
+#computerScore {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #5cea92;
+    text-shadow: 0 0 10px rgba(92, 234, 146, 0.3);
+    display: block;
+}
+
+#resultDisplay {
+    padding: 20px 22px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(16, 32, 60, 0.94), rgba(7, 17, 35, 0.96));
+    border: 2px solid rgba(133, 229, 255, 0.22);
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.greenText {
+    color: #5cea92;
+}
+
+.yellowText {
+    color: #f9d76b;
+}
+
+.redText {
+    color: #ff6c8e;
+}
+
+@media (max-width: 900px) {
+    .battle-arena {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .player-side,
+    .computer-side {
+        justify-content: center;
+    }
+
+    .player-info,
+    .computer-info {
+        padding: 20px;
+    }
+
+    .choice-display {
+        font-size: 3rem;
+        min-height: 100px;
+    }
+
+    .vs-area {
+        height: 60px;
+    }
+
+    .vs {
+        font-size: 1.2rem;
+    }
+
+    .battle-center {
+        gap: 16px;
+    }
+}
+
+@media (max-width: 540px) {
+    body {
+        padding: 18px;
+    }
+
+    .container {
+        padding: 20px;
+        width: min(100%, 100%);
+    }
+
+    .choices button {
+        width: 88px;
+        height: 88px;
+        font-size: 2.4rem;
+    }
+
+    .battle-arena {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .player-info,
+    .computer-info {
+        padding: 16px;
+    }
+
+    .player-info h2,
+    .computer-info h2 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+
+    .choice-display {
+        font-size: 2.5rem;
+        min-height: 80px;
+        margin: 8px 0;
+    }
+
+    .score {
+        font-size: 0.95rem;
+    }
+
+    .result-text {
+        font-size: 1rem;
+        padding: 16px 18px;
+        min-height: 40px;
+    }
+
+    .vs-area {
+        height: 50px;
+    }
+
+    .vs {
+        font-size: 1rem;
+    }
+}
